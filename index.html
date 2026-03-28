@@ -19,8 +19,15 @@
       <li><a href="#process">How It Works</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <div class="mobile-menu" id="mobile-menu">
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#why" onclick="closeMenu()">Why Us</a>
+  <a href="#process" onclick="closeMenu()">How It Works</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="https://wa.me/2347032719230?text=Hello%20Liga%20Core!%20I%20would%20like%20a%20free%20quote%20for%20solar%20installation." target="_blank" onclick="closeMenu()">Get Free Quote</a>
+</div>
     <a href="https://wa.me/2347032719230" target="_blank" class="nav-cta">Get a Free Quote</a>
-    <div class="hamburger" onclick="toggleMenu()">
+    <div class="hamburger">
       <span></span><span></span><span></span>
     </div>
   </nav>
@@ -224,7 +231,14 @@
       </div>
     </div>
   </section>
-
+  <div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <div class="popup-icon">✅</div>
+    <h3>Message Sent!</h3>
+    <p>Thank you! Liga Core will contact you on WhatsApp shortly.</p>
+    <button onclick="closePopup()">Okay, Got It!</button>
+  </div>
+</div>
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">LIGA<span>CORE</span></div>
@@ -236,23 +250,6 @@
     </div>
   </footer>
 
-  <script>
-    function toggleMenu() {
-      alert("Mobile menu — you can add a slide-out menu here later!");
-    }
-
-    function handleSubmit(e) {
-      e.preventDefault();
-      const name = e.target.querySelector('input[type="text"]').value;
-      const phone = e.target.querySelector('input[type="tel"]').value;
-      const location = e.target.querySelectorAll('input[type="text"]')[1].value;
-      const service = e.target.querySelector('select').value;
-      const message = e.target.querySelector('textarea').value;
-
-      const text = `Hello Liga Core! My name is ${name}. Phone: ${phone}. Location: ${location}. I need: ${service}. ${message ? 'Message: ' + message : ''}`;
-      const url = `https://wa.me/2347032719230?text=${encodeURIComponent(text)}`;
-      window.open(url, '_blank');
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
