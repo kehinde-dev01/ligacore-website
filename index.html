@@ -28,12 +28,14 @@
       <li><a href="#services">Services</a></li>
       <li><a href="#why">Why Us</a></li>
       <li><a href="#process">How It Works</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="mobile-menu" id="mobile-menu">
   <a href="#services" onclick="closeMenu()">Services</a>
   <a href="#why" onclick="closeMenu()">Why Us</a>
   <a href="#process" onclick="closeMenu()">How It Works</a>
+  <a href="#testimonials" onclick="closeMenu()">Reviews</a>
   <a href="#contact" onclick="closeMenu()">Contact</a>
   <a href="https://wa.me/2347032719230?text=Hello%20Liga%20Core!%20I%20would%20like%20a%20free%20quote%20for%20solar%20installation." target="_blank" onclick="closeMenu()">Get Free Quote</a>
 </div>
@@ -179,6 +181,35 @@
     </div>
   </section>
 
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="testimonials-header">
+      <div class="section-tag">What Clients Say</div>
+      <h2 class="section-title">Real Lagosians. Real Results.</h2>
+      <p class="section-sub">Don't take our word for it — hear from families and businesses we've powered up.</p>
+    </div>
+
+    <div class="slider-wrap">
+      <div class="slider-card" id="slider-card">
+        <div class="slider-stars" id="slider-stars"></div>
+        <p class="slider-quote" id="slider-quote"></p>
+        <div class="slider-author">
+          <div class="slider-avatar" id="slider-avatar"></div>
+          <div>
+            <div class="slider-name" id="slider-name"></div>
+            <div class="slider-location" id="slider-location"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-controls">
+        <button class="slider-btn" id="prev-btn" aria-label="Previous">&#8592;</button>
+        <div class="slider-dots" id="slider-dots"></div>
+        <button class="slider-btn" id="next-btn" aria-label="Next">&#8594;</button>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact">
     <div class="contact-wrap">
@@ -242,14 +273,16 @@
       </div>
     </div>
   </section>
+
   <div class="popup-overlay" id="popup">
-  <div class="popup-box">
-    <div class="popup-icon">✅</div>
-    <h3>Message Sent!</h3>
-    <p>Thank you! Liga Core will contact you on WhatsApp shortly.</p>
-    <button onclick="closePopup()">Okay, Got It!</button>
+    <div class="popup-box">
+      <div class="popup-icon">✅</div>
+      <h3>Message Sent!</h3>
+      <p>Thank you! Liga Core will contact you on WhatsApp shortly.</p>
+      <button onclick="closePopup()">Okay, Got It!</button>
+    </div>
   </div>
-</div>
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">LIGA<span>CORE</span></div>
@@ -257,6 +290,7 @@
     <div class="footer-links">
       <a href="#services">Services</a>
       <a href="#why">Why Us</a>
+      <a href="#testimonials">Reviews</a>
       <a href="#contact">Contact</a>
     </div>
   </footer>

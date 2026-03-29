@@ -611,3 +611,130 @@
 .popup-box button:hover {
   background: var(--sun-bright);
 }
+/* ── TESTIMONIALS SLIDER ── */
+.testimonials { background: var(--darker); }
+.testimonials-header { margin-bottom: 3.5rem; }
+
+.slider-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.slider-card {
+  background: var(--card);
+  border: 1px solid rgba(245,166,35,0.15);
+  border-radius: 12px;
+  padding: 3rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+  cursor: grab;
+}
+
+.slider-card::before {
+  content: '"';
+  position: absolute;
+  top: -1rem; left: 1.5rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 8rem;
+  color: rgba(245,166,35,0.08);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.slider-stars {
+  color: var(--sun);
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  margin-bottom: 1.2rem;
+}
+
+.slider-quote {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text);
+  font-weight: 300;
+  margin-bottom: 2rem;
+}
+
+.slider-author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.slider-avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: rgba(245,166,35,0.15);
+  border: 1px solid rgba(245,166,35,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.slider-name {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.slider-location {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.slider-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.slider-btn {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1px solid rgba(245,166,35,0.3);
+  color: var(--sun);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.slider-btn:hover {
+  background: rgba(245,166,35,0.12);
+  border-color: var(--sun);
+  transform: scale(1.08);
+}
+
+.slider-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(245,166,35,0.25);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s, transform 0.3s;
+}
+.dot.active {
+  background: var(--sun);
+  transform: scale(1.3);
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@media (max-width: 768px) {
+  .slider-card { padding: 2rem 1.5rem; }
+  .slider-quote { font-size: 0.95rem; }
+}
