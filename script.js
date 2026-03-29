@@ -1,120 +1,209 @@
-function handleSubmit(e) {
-  e.preventDefault()
-  const name = e.target.querySelector('input[type="text"]').value
-  const phone = e.target.querySelector('input[type="tel"]').value
-  const location = e.target.querySelectorAll('input[type="text"]')[1].value
-  const service = e.target.querySelector('select').value
-  const message = e.target.querySelector('textarea').value
-
-  const text = `Hello Liga Core! My name is ${name}. Phone: ${phone}. Location: ${location}. I need: ${service}. ${message ? 'Message: ' + message : ''}`
-  const url = `https://wa.me/2347032719230?text=${encodeURIComponent(text)}`
-  window.open(url, '_blank')
-
-  popup.classList.add('open')
-  e.target.reset()
-}
-
-const hamburger = document.querySelector('.hamburger')
+const body = document.body
+const themeToggle = document.getElementById('theme-toggle')
+const themeIcon = document.querySelector('.theme-icon')
+const hamburger = document.getElementById('hamburger')
 const mobileMenu = document.getElementById('mobile-menu')
-
-hamburger.addEventListener('click', function() {
-  mobileMenu.classList.toggle('open')
-})
-
-function closeMenu() {
-  mobileMenu.classList.remove('open')
-}
-
 const popup = document.getElementById('popup')
+const popupCloseBtn = document.getElementById('popup-close-btn')
+const contactForm = document.getElementById('contact-form')
 
-function closePopup() {
-  popup.classList.remove('open')
+function applyTheme(theme) {
+  if (theme === 'light') {
+    body.classList.add('light-mode')
+    if (themeIcon) themeIcon.textContent = '☀️'
+  } else {
+    body.classList.remove('light-mode')
+    if (themeIcon) themeIcon.textContent = '🌙'
+  }
+  localStorage.setItem('ligacore-theme', theme)
 }
 
+const savedTheme = localStorage.getItem('ligacore-theme')
+if (savedTheme) {
+  applyTheme(savedTheme)
+} else {
+  applyTheme('dark')
+}
 
-// ── TESTIMONIALS SLIDER ──
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    const isLight = body.classList.contains('light-mode')
+    applyTheme(isLight ? 'dark' : 'light')
+  })
+}
 
-// Step 1: All testimonials stored in an array of objects
+if (hamburger && mobileMenu) {
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open')
+    hamburger.setAttribute('aria-expanded', String(isOpen))
+  })
+
+  mobileMenu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open')
+      hamburger.setAttribute('aria-expanded', 'false')
+    })
+  })
+}
+
+function cleanText(value, maxLength = 500) {
+  return String(value).replace(/\s+/g, ' ').trim().slice(0, maxLength)
+}
+
+function isValidPhone(phone) {
+  return /^[0-9+\-\s()]{7,20}$/.test(phone)
+}
+
+if (contactForm) {
+  contactForm.addEventListener('submit', (event) => {
+    event.preventDefault()
+
+    const formData = new FormData(contactForm)
+    const name = cleanText(formData.get('name'), 80)
+    const phone = cleanText(formData.get('phone'), 20)
+    const location = cleanText(formData.get('location'), 80)
+    const service = cleanText(formData.get('service'), 120)
+    const message = cleanText(formData.get('message'), 500)
+
+    if (!name || !phone || !location || !service) {
+      alert('Please fill in all required fields.')
+      return
+    }
+
+    if (!isValidPhone(phone)) {
+      alert('Please enter a valid phone number.')
+      return
+    }
+
+    const text =
+      `Hello LIGACORE Solutions! My name is ${name}. ` +
+      `Phone: ${phone}. ` +
+      `Location: ${location}. ` +
+      `Service needed: ${service}. ` +
+      `${message ? `Project details: ${message}` : ''}`
+
+    const url = `https://wa.me/2347032719230?text=${encodeURIComponent(text)}`
+
+    popup.classList.add('open')
+
+    setTimeout(() => {
+      window.open(url, '_blank', 'noopener,noreferrer')
+      contactForm.reset()
+    }, 500)
+  })
+}
+
+if (popupCloseBtn) {
+  popupCloseBtn.addEventListener('click', () => {
+    popup.classList.remove('open')
+  })
+}
+
+if (popup) {
+  popup.addEventListener('click', (event) => {
+    if (event.target === popup) {
+      popup.classList.remove('open')
+    }
+  })
+}
+
 const testimonials = [
   {
     name: "Chidi Nwosu",
     location: "Ikeja, Lagos",
-    avatar: "🏠",
+    avatar: "☀️",
     stars: 5,
-    quote: "Liga Core changed my life o! We used to run generator morning till night — fuel cost was killing us. Now we have solar and our light bill is almost nothing. Best decision ever!"
+    quote: "LIGACORE Solutions handled our solar and inverter installation professionally. The setup is neat, stable, and the team explained everything clearly."
   },
   {
     name: "Fatimah Bello",
     location: "Surulere, Lagos",
-    avatar: "👩‍💼",
+    avatar: "📹",
     stars: 5,
-    quote: "Professional people. They came for the assessment, explained everything clearly, gave me a fair price, and installed within two days. My freezer and AC have not gone off since. 10/10."
+    quote: "We needed CCTV coverage for our property and they delivered clean installation with good camera positioning. Very professional finish."
   },
   {
-    name: "Emeka & Sons Printing",
+    name: "Emeka & Sons",
     location: "Oshodi, Lagos",
-    avatar: "🏭",
+    avatar: "⚡",
     stars: 5,
-    quote: "We run a printing press — power outage used to mean lost money every day. Liga Core set us up with a system that handles all our machines. Production has not stopped since installation."
+    quote: "They installed our electric fence system and the work was sharp and organized. Communication was smooth from start to finish."
   },
   {
-    name: "Blessing Okafor",
-    location: "Ajah, Lagos",
-    avatar: "👨‍👩‍👧",
+    name: "Adebayo Homes",
+    location: "Lekki, Lagos",
+    avatar: "🚪",
     stars: 5,
-    quote: "Genuine people with genuine work. No hidden charges. The quote they gave me was exactly what I paid. My neighbours have already asked for their contact. Highly recommend!"
+    quote: "Our automated door system works beautifully and the installation quality was impressive. LIGACORE Solutions knows how to deliver premium results."
   },
   {
     name: "Taiwo Adeyemi",
     location: "Yaba, Lagos",
-    avatar: "💻",
+    avatar: "🔧",
     stars: 5,
-    quote: "I work from home so stable power is everything for me. Liga Core installed my inverter system in one day and I haven't thought about NEPA since. Worth every kobo!"
+    quote: "What I liked most was that they looked at the whole problem and recommended the right solution instead of pushing one product only."
   }
 ]
 
-// Step 2: Track which slide is showing
 let currentIndex = 0
 let autoPlayTimer = null
+let touchStartX = 0
 
-// Step 3: Build one dot per testimonial in the array
+const sliderCard = document.getElementById('slider-card')
+const sliderStars = document.getElementById('slider-stars')
+const sliderQuote = document.getElementById('slider-quote')
+const sliderName = document.getElementById('slider-name')
+const sliderLocation = document.getElementById('slider-location')
+const sliderAvatar = document.getElementById('slider-avatar')
+const sliderDots = document.getElementById('slider-dots')
+const nextBtn = document.getElementById('next-btn')
+const prevBtn = document.getElementById('prev-btn')
+
 function buildDots() {
-  const dotsContainer = document.getElementById('slider-dots')
-  dotsContainer.innerHTML = ''
+  if (!sliderDots) return
+  sliderDots.innerHTML = ''
 
-  testimonials.forEach((_, i) => {
+  testimonials.forEach((_, index) => {
     const dot = document.createElement('button')
-    dot.classList.add('dot')
-    dot.setAttribute('aria-label', `Go to testimonial ${i + 1}`)
-    if (i === currentIndex) dot.classList.add('active')
-    dot.addEventListener('click', () => goToSlide(i))
-    dotsContainer.appendChild(dot)
+    dot.className = 'dot'
+    dot.type = 'button'
+    dot.setAttribute('aria-label', `Go to testimonial ${index + 1}`)
+
+    if (index === currentIndex) {
+      dot.classList.add('active')
+    }
+
+    dot.addEventListener('click', () => {
+      goToSlide(index)
+    })
+
+    sliderDots.appendChild(dot)
   })
 }
 
-// Step 4: Core function — reads from array, updates DOM
+function updateDots() {
+  document.querySelectorAll('.dot').forEach((dot, index) => {
+    dot.classList.toggle('active', index === currentIndex)
+  })
+}
+
 function showSlide(index) {
-  const t = testimonials[index]
+  const item = testimonials[index]
+  if (!item || !sliderCard) return
 
-  document.getElementById('slider-stars').textContent = '★'.repeat(t.stars)
-  document.getElementById('slider-quote').textContent = t.quote
-  document.getElementById('slider-name').textContent = t.name
-  document.getElementById('slider-location').textContent = t.location
-  document.getElementById('slider-avatar').textContent = t.avatar
+  sliderStars.textContent = '★'.repeat(item.stars)
+  sliderQuote.textContent = item.quote
+  sliderName.textContent = item.name
+  sliderLocation.textContent = item.location
+  sliderAvatar.textContent = item.avatar
 
-  // Restart slide-in animation on each change
-  const card = document.getElementById('slider-card')
-  card.style.animation = 'none'
-  card.offsetHeight // force browser reflow
-  card.style.animation = 'slideIn 0.4s ease'
+  sliderCard.style.animation = 'none'
+  void sliderCard.offsetWidth
+  sliderCard.style.animation = 'slideIn 0.35s ease'
 
-  // Sync the active dot
-  document.querySelectorAll('.dot').forEach((dot, i) => {
-    dot.classList.toggle('active', i === index)
-  })
+  updateDots()
 }
 
-// Step 5: Navigation — modulo (%) wraps the index around
 function nextSlide() {
   currentIndex = (currentIndex + 1) % testimonials.length
   showSlide(currentIndex)
@@ -131,7 +220,6 @@ function goToSlide(index) {
   resetAutoPlay()
 }
 
-// Step 6: Auto-play every 5 seconds
 function startAutoPlay() {
   autoPlayTimer = setInterval(nextSlide, 5000)
 }
@@ -141,33 +229,34 @@ function resetAutoPlay() {
   startAutoPlay()
 }
 
-// Step 7: Touch/swipe support for mobile
-let touchStartX = 0
-
-document.getElementById('slider-card').addEventListener('touchstart', (e) => {
-  touchStartX = e.changedTouches[0].screenX
-})
-
-document.getElementById('slider-card').addEventListener('touchend', (e) => {
-  const diff = touchStartX - e.changedTouches[0].screenX
-  if (Math.abs(diff) > 40) {
-    diff > 0 ? nextSlide() : prevSlide()
+if (nextBtn) {
+  nextBtn.addEventListener('click', () => {
+    nextSlide()
     resetAutoPlay()
-  }
-})
+  })
+}
 
-// Step 8: Wire up buttons
-document.getElementById('next-btn').addEventListener('click', () => {
-  nextSlide()
-  resetAutoPlay()
-})
+if (prevBtn) {
+  prevBtn.addEventListener('click', () => {
+    prevSlide()
+    resetAutoPlay()
+  })
+}
 
-document.getElementById('prev-btn').addEventListener('click', () => {
-  prevSlide()
-  resetAutoPlay()
-})
+if (sliderCard) {
+  sliderCard.addEventListener('touchstart', (event) => {
+    touchStartX = event.changedTouches[0].screenX
+  })
 
-// Initialize everything
+  sliderCard.addEventListener('touchend', (event) => {
+    const diff = touchStartX - event.changedTouches[0].screenX
+    if (Math.abs(diff) > 40) {
+      diff > 0 ? nextSlide() : prevSlide()
+      resetAutoPlay()
+    }
+  })
+}
+
 buildDots()
 showSlide(currentIndex)
 startAutoPlay()
